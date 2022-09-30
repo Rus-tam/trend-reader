@@ -31,16 +31,15 @@ class DataManipulator:
         transposed_values.insert(2, "Ед. измерения", sensor_units, True)
 
         transposed_values.drop(transposed_values.columns[0], axis=1, inplace=True)
-
-        print(transposed_values)
-        print("========================")
-        print(" ")
-
         return transposed_values
 
-
-    def df_to_csv(self, data_frame):
-        self.__make_normal_df(data_frame)
+    def df_to_csv(self, data_frame, path):
+        file_name = path.split("\\")[-1]
+        normal_df = self.__make_normal_df(data_frame)
+        print(f'Сохраняю нормализованный файл {file_name}')
+        print("++++++++++++++++++++++++++")
+        print(" ")
+        normal_df.to_csv(path)
 
 
 

@@ -1,16 +1,17 @@
 import pandas as pd
 
-from src.change_encoding import EncodingChanger
+from src.files_handler import FilesHandler
 from src.data_manipulator import DataManipulator
 
-encoding_changer = EncodingChanger()
-encoding_changer.ansi_to_utf8()
+files_handler = FilesHandler()
+files_handler.ansi_to_utf8()
 
 data_manipulator = DataManipulator()
 
 
-for file in encoding_changer.ansi_files:
-    data = pd.read_csv(rf"{encoding_changer.src_path}\trends\utf8_files\{file}", low_memory=False)
-    data_manipulator.df_to_csv(data)
+for file in files_handler.ansi_files:
+    saving_path = rf"{files_handler.src_path}\trends\processed_files\{file}"
+    data = pd.read_csv(rf"{files_handler.src_path}\trends\utf8_files\{file}", low_memory=False)
+    data_manipulator.df_to_csv(data, saving_path)
 
 

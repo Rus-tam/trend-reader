@@ -4,7 +4,7 @@ from os import listdir
 import shutil
 
 
-class EncodingChanger:
+class FilesHandler:
     def __init__(self):
         self.src_path = os.getcwd()
         if not os.path.isdir(f"{self.src_path}/trends/ansi_files"):
@@ -15,6 +15,9 @@ class EncodingChanger:
         self.ansi_files = listdir(fr"{self.src_path}/trends/ansi_files")
         if os.path.isdir(f"{self.src_path}/trends/ansi_files") and len(self.ansi_files) == 0:
             print("Нет исходных файлов в формате ANSI")
+        if not os.path.isdir(f"{self.src_path}/trends/processed_files"):
+            os.mkdir(f"{self.src_path}/trends/processed_files")
+            print("Папка processed_files создана.")
 
     def ansi_to_utf8(self):
         # Меняем кодировку файла
