@@ -19,3 +19,7 @@ data_manipulator.make_overall_csv(files_handler.src_path, files_handler.processe
 df = pd.read_csv(rf"{files_handler.src_path}/trends/overall-file.csv", low_memory=False)
 print(df.head(5))
 
+# data = data_manipulator.make_overall_csv(files_handler.src_path, files_handler.processed_files)
+#
+# data_manipulator.clean_df(data)
+

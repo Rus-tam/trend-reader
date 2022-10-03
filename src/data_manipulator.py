@@ -37,6 +37,7 @@ class DataManipulator:
         # path - путь сохранения файла (в этот путь уже должно быть добавлено наименование файла)
         file_name = path.split("\\")[-1]
         normal_df = self.__make_normal_df(data_frame)
+        print("++++++++++++++++++++++++++")
         print(f'Сохраняю нормализованный файл {file_name}')
         print("++++++++++++++++++++++++++")
         print(" ")
@@ -49,10 +50,25 @@ class DataManipulator:
                 df = pd.read_csv(rf"{src_path}/trends/processed_files/{file}", low_memory=False)
                 df_list.append(df)
             overall_df = pd.concat(df_list)
+            # Очищаем датафрейм
+            cleaned_overall_df = self.clean_df(overall_df)
             print("++++++++++++++++++++++++")
             print("Сохраняю файл с обобщенными данными overall-file.csv")
             print("++++++++++++++++++++++++")
             print(" ")
-            overall_df.to_csv(rf"{src_path}/trends/overall-file.csv")
+            print(cleaned_overall_df)
+            cleaned_overall_df.to_csv(rf"{src_path}/trends/overall-file.csv")
         except:
             print("Возникла какая-то ошибка!")
+
+    def clean_df(self, df):
+        columns = df.columns
+        trash_indexes = []
+        i = 0
+        while columns[i] != 'Имя датчика':
+            trash_indexes.append(i)
+            i += 1
+        new_df = df.drop(df.columns[trash_indexes], axis=1)
+        new_df = new_df.reset_index(drop=True)
+
+        return new_df
