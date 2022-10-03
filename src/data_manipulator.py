@@ -34,6 +34,7 @@ class DataManipulator:
         return transposed_values
 
     def df_to_csv(self, data_frame, path):
+        # path - путь сохранения файла (в этот путь уже должно быть добавлено наименование файла)
         file_name = path.split("\\")[-1]
         normal_df = self.__make_normal_df(data_frame)
         print(f'Сохраняю нормализованный файл {file_name}')
@@ -41,6 +42,17 @@ class DataManipulator:
         print(" ")
         normal_df.to_csv(path)
 
-
-
-
+    def make_overall_csv(self, src_path, processed_files):
+        try:
+            df_list = []
+            for file in processed_files:
+                df = pd.read_csv(rf"{src_path}/trends/processed_files/{file}", low_memory=False)
+                df_list.append(df)
+            overall_df = pd.concat(df_list)
+            print("++++++++++++++++++++++++")
+            print("Сохраняю файл с обобщенными данными overall-file.csv")
+            print("++++++++++++++++++++++++")
+            print(" ")
+            overall_df.to_csv(rf"{src_path}/trends/overall-file.csv")
+        except:
+            print("Возникла какая-то ошибка!")

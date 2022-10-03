@@ -14,4 +14,8 @@ for file in files_handler.ansi_files:
     data = pd.read_csv(rf"{files_handler.src_path}\trends\utf8_files\{file}", low_memory=False)
     data_manipulator.df_to_csv(data, saving_path)
 
+data_manipulator.make_overall_csv(files_handler.src_path, files_handler.processed_files)
+
+df = pd.read_csv(rf"{files_handler.src_path}/trends/overall-file.csv", low_memory=False)
+print(df.head(5))
 

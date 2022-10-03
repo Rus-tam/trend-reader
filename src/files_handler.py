@@ -13,6 +13,7 @@ class FilesHandler:
         if not os.path.isdir(f"{self.src_path}/trends/utf8_files"):
             os.mkdir(f"{self.src_path}/trends/utf8_files")
         self.ansi_files = listdir(fr"{self.src_path}/trends/ansi_files")
+        self.processed_files = listdir(fr"{self.src_path}/trends/processed_files")
         if os.path.isdir(f"{self.src_path}/trends/ansi_files") and len(self.ansi_files) == 0:
             print("Нет исходных файлов в формате ANSI")
         if not os.path.isdir(f"{self.src_path}/trends/processed_files"):
