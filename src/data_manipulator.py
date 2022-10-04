@@ -40,7 +40,7 @@ class DataManipulator:
         except:
             print("Возникла какая-то ошибка!")
 
-    def sort_by_department(self, overall_df, src_path):
+    def sort_by_department(self, overall_df):
         departments = []
         multiple_df = {}
         all_sensors = overall_df["Имя датчика"].tolist()
@@ -51,18 +51,11 @@ class DataManipulator:
         for department in departments:
             indexes = [i for i in range(0, len(all_sensors)) if all_sensors[i][0:2] == department]
             df = overall_df.iloc[indexes]
-            multiple_df[department] = self.clean_df(df)
+            multiple_df[department] = df
 
         return multiple_df
 
-    def clean_df(self, data_frame):
-        columns = data_frame.columns
-        trash_indexes = []
-        i = 0
-        while columns[i] != 'Имя датчика':
-            trash_indexes.append(i)
-            i += 1
-        new_df = data_frame.drop(data_frame.columns[trash_indexes], axis=1)
-        new_df = new_df.reset_index(drop=True)
+    def sort_by_time(self, data_frame):
+        time = data_frame.columns
+        print(time)
 
-        return new_df

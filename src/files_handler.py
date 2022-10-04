@@ -22,6 +22,7 @@ class FilesHandler:
         if not os.path.isdir(f"{self.src_path}/trends/sorted_by_department"):
             os.mkdir(f"{self.src_path}/trends/sorted_by_department")
             print("Создана папка sorted_by_department")
+        self.sorted_by_department_files = listdir(fr"{self.src_path}/trends/sorted_by_department")
 
     def ansi_to_utf8(self):
         # Меняем кодировку файла

@@ -24,8 +24,12 @@ class Writer:
             print("+++++++++++++++++++++++")
             print(f"Сохраняю файл 'отделение-{name}'")
             print("+++++++++++++++++++++++")
-            multiple_df[name].to_csv(rf"{src_path}/trends/sorted_by_department/отделение-{name}", index=False)
+            print(" ")
+            multiple_df[name].to_csv(rf"{src_path}/trends/sorted_by_department/отделение-{name}.csv", index=False)
 
 
     def df_to_excel(self, data_frame, path):
-        pass
+        time = data_frame.columns
+
+        print(time)
+        print(" ")

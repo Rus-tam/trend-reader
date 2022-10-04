@@ -17,9 +17,15 @@ for file in files_handler.ansi_files:
     Writer.df_to_csv(normal_df, saving_path)
 
 overall_df = data_manipulator.make_overall_df(files_handler.src_path, files_handler.processed_files)
-multiple_df = data_manipulator.sort_by_department(overall_df, files_handler.src_path)
+multiple_df = data_manipulator.sort_by_department(overall_df)
 
 Writer.multiple_df_to_csv(multiple_df, files_handler.src_path)
+
+sorted_files = files_handler.sorted_by_department_files
+
+for file in sorted_files:
+    data = pd.read_csv(rf"{files_handler.src_path}\trends\sorted_by_department\{file}")
+    data_manipulator.sort_by_time(data)
 
 # Writer.df_to_csv(overall_df, rf'{files_handler.src_path}\trends\overall-file.csv')
 
