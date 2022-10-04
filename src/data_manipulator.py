@@ -51,7 +51,7 @@ class DataManipulator:
         for department in departments:
             indexes = [i for i in range(0, len(all_sensors)) if all_sensors[i][0:2] == department]
             df = overall_df.iloc[indexes]
-            multiple_df[department] = df
+            multiple_df[department] = self.clean_df(df)
 
         return multiple_df
 
