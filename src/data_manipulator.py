@@ -40,8 +40,20 @@ class DataManipulator:
         except:
             print("Возникла какая-то ошибка!")
 
-    def filter_by_department(self, overall_df):
-        pass
+    def sort_by_department(self, overall_df, src_path):
+        departments = []
+        multiple_df = {}
+        all_sensors = overall_df["Имя датчика"].tolist()
+        for sensor in all_sensors:
+            if sensor[0:2] not in departments:
+                departments.append(sensor[0:2])
+
+        for department in departments:
+            indexes = [i for i in range(0, len(all_sensors)) if all_sensors[i][0:2] == department]
+            df = overall_df.iloc[indexes]
+            multiple_df[department] = df
+
+        return multiple_df
 
     def clean_df(self, data_frame):
         columns = data_frame.columns
