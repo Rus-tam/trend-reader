@@ -1,4 +1,8 @@
 import pandas as pd
+from openpyxl import load_workbook
+from openpyxl.utils import get_column_letter
+from openpyxl.styles import Alignment, Font
+
 
 
 class Writer:
@@ -27,9 +31,27 @@ class Writer:
             print(" ")
             multiple_df[name].to_csv(rf"{src_path}/trends/sorted_by_department/отделение-{name}.csv", index=False)
 
+    @staticmethod
+    def multiple_df_to_excel(data_frame, path):
+        # path - путь сохранения файла в котором уже прописанно наименование файла
+        writer = pd.ExcelWriter(path, engine='openpyxl')
+        workbook = writer.book
+        days = list(data_frame.keys())
 
-    def df_to_excel(self, data_frame, path):
-        time = data_frame.columns
-
-        print(time)
+        for day in days:
+            data_frame[day].to_excel(writer, sheet_name=f'{day}', startrow=0, startcol=0, index=False)
+            sht = workbook[f'{day}']
+            for row in sht['A1:MS1000']:
+                for cell in row:
+                    cell.alignment = Alignment(wrap_text=True, vertical='center', horizontal='center')
+            column = 1
+            while column < 600:
+                i = get_column_letter(column)
+                sht.column_dimensions[i].width = 20
+                column += 1
+        workbook.save(path)
+        file_name = path.split('\\')[-1]
+        print("++++++++++++++++++++++++++++++++++")
+        print(f'Сохраняю в формате .xlsx файл {file_name}')
+        print("++++++++++++++++++++++++++++++++++")
         print(" ")

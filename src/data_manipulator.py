@@ -1,7 +1,4 @@
 import pandas as pd
-from openpyxl import load_workbook
-from openpyxl.utils import get_column_letter
-from openpyxl.styles import Alignment, Font
 
 
 class DataManipulator:
@@ -58,6 +55,9 @@ class DataManipulator:
     def sort_by_time(self, data_frame):
         data = {}
         selected_times = []
+        selected_times.append(data_frame.columns[0])
+        selected_times.append(data_frame.columns[1])
+        selected_times.append(data_frame.columns[2])
         times = list(data_frame.columns)[3:]
         current_day = times[0].split(' ')[0]
         for time in times:
@@ -65,14 +65,14 @@ class DataManipulator:
             if current_day != day:
                 current_day = day
                 selected_times = []
+                selected_times.append(data_frame.columns[0])
+                selected_times.append(data_frame.columns[1])
+                selected_times.append(data_frame.columns[2])
             current_time = time.split(' ')[1]
 
             if current_time.split(':')[1][1] == '0':
                 selected_times.append(current_day + ' ' + current_time)
-        selected_times.insert(0, data_frame.columns[0])
-        selected_times.insert(1, data_frame.columns[1])
-        selected_times.insert(2, data_frame.columns[2])
-        data[f"{current_day}"] = data_frame[selected_times]
+            data[f"{current_day}"] = data_frame[selected_times]
 
         return data
 

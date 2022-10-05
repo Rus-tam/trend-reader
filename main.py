@@ -25,7 +25,9 @@ sorted_files = files_handler.sorted_by_department_files
 
 for file in sorted_files:
     data = pd.read_csv(rf"{files_handler.src_path}\trends\sorted_by_department\{file}")
-    data_manipulator.sort_by_time(data)
+    sorted_by_time_data = data_manipulator.sort_by_time(data)
+    file_xlsx = file.split('.')[0] + '.xlsx'
+    Writer.multiple_df_to_excel(sorted_by_time_data, rf"{files_handler.src_path}\trends\{file_xlsx}")
 
 # Writer.df_to_csv(overall_df, rf'{files_handler.src_path}\trends\overall-file.csv')
 
