@@ -56,6 +56,26 @@ class DataManipulator:
         return multiple_df
 
     def sort_by_time(self, data_frame):
-        time = data_frame.columns
-        print(time)
+        data = {}
+        selected_times = []
+        times = list(data_frame.columns)[3:]
+        current_day = times[0].split(' ')[0]
+        for time in times:
+            day = time.split(' ')[0]
+            if current_day != day:
+                current_day = day
+                selected_times = []
+            current_time = time.split(' ')[1]
+
+            if current_time.split(':')[1][1] == '0':
+                selected_times.append(current_day + ' ' + current_time)
+        selected_times.insert(0, data_frame.columns[0])
+        selected_times.insert(1, data_frame.columns[1])
+        selected_times.insert(2, data_frame.columns[2])
+        data[f"{current_day}"] = data_frame[selected_times]
+
+        return data
+
+
+
 
