@@ -31,7 +31,8 @@ class Writer:
             print(f"Сохраняю файл 'отделение-{name}'")
             print("+++++++++++++++++++++++")
             print(" ")
-            if f"отделение-{name}.csv" in file_names:
+            files = os.listdir(rf"{src_path}/trends/sorted_by_department")
+            if f"отделение-{name}.csv" in files:
                 current_data = pd.read_csv(rf"{src_path}/trends/sorted_by_department/отделение-{name}.csv", low_memory=False)
                 new_data = pd.concat([multiple_df, current_data], axis=0)
                 new_data.to_csv(rf"{src_path}/trends/sorted_by_department/отделение-{name}.csv", index=False)
