@@ -14,6 +14,7 @@ class FilesHandler:
             os.mkdir(f"{self.src_path}/trends/utf8_files")
         self.ansi_files = listdir(fr"{self.src_path}/trends/ansi_files")
         self.processed_files = listdir(fr"{self.src_path}/trends/processed_files")
+        self.utf8_files = listdir(fr"{self.src_path}/trends/utf8_files")
         if os.path.isdir(f"{self.src_path}/trends/ansi_files") and len(self.ansi_files) == 0:
             print("Нет исходных файлов в формате ANSI")
         if not os.path.isdir(f"{self.src_path}/trends/processed_files"):
@@ -34,3 +35,12 @@ class FilesHandler:
             with io.open(f"{self.src_path}/trends/ansi_files/{file}", encoding="ANSI", errors="ignore") as source:
                 with io.open(f"{self.src_path}/trends/utf8_files/{file}", mode="w", encoding="UTF-8") as target:
                     shutil.copyfileobj(source, target)
+
+    def delete_files(self):
+        # Удаляем файлы в папках processed_files, sorted_by_department, utf8_files
+        for file in self.processed_files:
+            os.remove(rf"{self.src_path}/trends/processed_files/{file}")
+        for file in self.sorted_by_department_files:
+            os.remove(rf"{self.src_path}/trends/sorted_by_department/{file}")
+        for file in self.utf8_files:
+            os.remove(rf"{self.src_path}/trends/utf8_files/{file}")

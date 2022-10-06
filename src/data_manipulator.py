@@ -40,11 +40,11 @@ class DataManipulator:
     def sort_by_department(self, overall_df):
         departments = []
         multiple_df = {}
-        all_sensors = overall_df["Имя датчика"].tolist()
+        sensors = overall_df["Имя датчика"].tolist()
+        all_sensors = [sensor for sensor in sensors if not pd.isna(sensor)]
         for sensor in all_sensors:
             if sensor[0:2] not in departments:
                 departments.append(sensor[0:2])
-
         for department in departments:
             indexes = [i for i in range(0, len(all_sensors)) if all_sensors[i][0:2] == department]
             df = overall_df.iloc[indexes]
@@ -53,6 +53,9 @@ class DataManipulator:
         return multiple_df
 
     def sort_by_time(self, data_frame):
+        print("+++++++++++++++++++++++++")
+        print("Начинаю сортировать дата фрейм по времени")
+        print("+++++++++++++++++++++++++")
         data = {}
         selected_times = []
         selected_times.append(data_frame.columns[0])
