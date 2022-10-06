@@ -53,11 +53,11 @@ class Writer:
         for day in days:
             data_frame[day].to_excel(writer, sheet_name=f'{day}', startrow=0, startcol=0, index=False)
             sht = workbook[f'{day}']
-            for row in sht['A1:MS1000']:
+            for row in sht['A1:MS300']:
                 for cell in row:
                     cell.alignment = Alignment(wrap_text=True, vertical='center', horizontal='center')
             column = 1
-            while column < 600:
+            while column < 200:
                 i = get_column_letter(column)
                 sht.column_dimensions[i].width = 20
                 column += 1
