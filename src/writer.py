@@ -1,3 +1,5 @@
+import os
+
 import pandas as pd
 from openpyxl import load_workbook
 from openpyxl.utils import get_column_letter
@@ -29,7 +31,17 @@ class Writer:
             print(f"Сохраняю файл 'отделение-{name}'")
             print("+++++++++++++++++++++++")
             print(" ")
-            multiple_df[name].to_csv(rf"{src_path}/trends/sorted_by_department/отделение-{name}.csv", index=False)
+            if f"отделение-{name}.csv" in file_names:
+                current_data = pd.read_csv(rf"{src_path}/trends/sorted_by_department/отделение-{name}.csv", low_memory=False)
+                new_data = pd.concat([multiple_df, current_data], axis=0)
+                new_data.to_csv(rf"{src_path}/trends/sorted_by_department/отделение-{name}.csv", index=False)
+                print('++++++++++++++++++++++++++++++')
+                print(f'Произведено слияние файлов по отделению-{name}')
+                print('++++++++++++++++++++++++++++++')
+                print(' ')
+            else:
+                multiple_df[name].to_csv(rf"{src_path}/trends/sorted_by_department/отделение-{name}.csv", index=False)
+
 
     @staticmethod
     def multiple_df_to_excel(data_frame, path):

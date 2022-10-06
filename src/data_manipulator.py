@@ -79,6 +79,23 @@ class DataManipulator:
 
         return data
 
+    def sort_by_minutes(self, data_frame):
+        print('+++++++++++++++++++++++++++++')
+        print('Произвожу предварительную сортировку по времени')
+        print('+++++++++++++++++++++++++++++')
+        selected_times = []
+        selected_times.append(data_frame.columns[0])
+        selected_times.append(data_frame.columns[1])
+        selected_times.append(data_frame.columns[2])
+        times = list(data_frame.columns)[3:]
+
+        for time in times:
+            current_time = time.split(' ')[1]
+            if current_time.split(':')[1][1] == '0':
+                selected_times.append(time)
+
+        return data_frame[selected_times]
+
 
 
 
