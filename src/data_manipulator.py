@@ -83,6 +83,7 @@ class DataManipulator:
         print('+++++++++++++++++++++++++++++')
         print('Произвожу предварительную сортировку по времени')
         print('+++++++++++++++++++++++++++++')
+        temp_arr = []
         selected_times = []
         selected_times.append(data_frame.columns[0])
         selected_times.append(data_frame.columns[1])
@@ -90,9 +91,9 @@ class DataManipulator:
         times = list(data_frame.columns)[3:]
 
         for time in times:
-            current_time = time.split(' ')[1]
-            if current_time.split(':')[1][1] == '0':
+            if time.split(' ')[1].split(':')[1][1] == '0' and time[:len(time) - 3] not in temp_arr:
                 selected_times.append(time)
+                temp_arr.append(time[:len(time) - 3])
 
         return data_frame[selected_times]
 
